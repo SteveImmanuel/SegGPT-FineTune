@@ -3,7 +3,7 @@ sys.path.append('SegGPT/SegGPT_inference')
 
 import torch as T
 import torch.nn.functional as F
-from SegGPT.SegGPT_inference.models_seggpt import SegGPT, seggpt_vit_large_patch16_input896x448
+from SegGPT.SegGPT_inference.models_seggpt import SegGPT
 from typing import Tuple
 
 class AdapterSegGPT(T.nn.Module):
@@ -34,21 +34,3 @@ class AdapterSegGPT(T.nn.Module):
         input_tgts = T.cat((prompt_tensor, tgts), dim=2)
 
         return self.seggpt.forward(input_imgs, input_tgts, bool_masked_pos, valid, seg_type, merge_between_batch)
-
-if __name__ == '__main__':
-    from data import BaseDataset
-
-    dataset = BaseDataset('/home/steve/Datasets/OpenEarthMap-FSS/valset', is_train=True, class_idx=9)
-    a, b, c, d, e,f,g = dataset[0]
-    a=a
-    b=b
-    c=c
-    d=d
-    e=e
-
-    model = seggpt_vit_large_patch16_input896x448()
-    initial_ckpt = T.load('tuning2.pt', map_location='cpu')
-    model.load_state_dict(initial_ckpt['model_state_dict'], strict=False)
-
-    adapter = AdapterSegGPT(model)
-    result = adapter(a.unsqueeze(0), b.unsqueeze(0), c.unsqueeze(0), d.unsqueeze(0), e.unsqueeze(0))
