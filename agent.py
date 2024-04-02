@@ -228,11 +228,6 @@ class Agent():
         self.logger.info('======CONFIGURATIONS======')
         for k, v in config.items():
             self.logger.info(f'{k.upper()}: {v}')
-        hparam_dict = {}
-        for k, v in config.items():
-            if k in ['lr', 'cycle_mult', 'lr_decay_factor', 'cycle_steps', 'warmup_steps', 'min_lr', 'batch_size', 'epoch', 'mask_ratio']:
-                hparam_dict[k] = v
-        self.summary_writer.add_hparams(hparam_dict=hparam_dict, metric_dict={}, run_name=str(self.uid))
         config_path = os.path.join(self.args['log_dir'], 'config.json')
         with open(config_path, 'w') as f:
             json.dump(config, f)
