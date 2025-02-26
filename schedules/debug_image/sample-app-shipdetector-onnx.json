@@ -1,0 +1,36 @@
+[
+    {
+        "AppName": "app-python-shipdetector-onnx",
+        "NameSpace": "payload-app",
+        "DeployAction": "UplinkFile",
+        "AppContextFile": {
+            "FileName": "app-config.json",
+            "Required": "true"
+        }
+    },
+    {
+        "AppName": "app-python-shipdetector-onnx",
+        "NameSpace": "payload-app",
+        "DeployAction": "UplinkFile",
+        "AppContextFile": {
+            "FileName": "model.onnx",
+            "Required": "true"
+        }
+    },
+    {
+        "AppName": "app-python-shipdetector-onnx",
+        "NameSpace": "payload-app",
+        "DeployAction": "UplinkFile",
+        "AppContextFile": {
+            "FileName": "labels.txt",
+            "Required": "true"
+        }
+    },
+    {
+        "AppName": "app-python-shipdetector-onnx",
+        "NameSpace": "payload-app",
+        "MaxDuration": "900s",
+        "DeployAction": "Apply",
+        "YamlFileContents": "app-python-shipdetector-onnx.yaml"
+    }
+]

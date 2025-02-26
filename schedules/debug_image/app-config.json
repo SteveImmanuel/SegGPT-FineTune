@@ -1,0 +1,13 @@
+{
+    "LATITUDE":"47.2753",
+    "LONGITUDE":"-122.4302",
+    "MODEL_FILENAME":"model.onnx",
+    "MODEL_LABEL_FILENAME":"labels.txt",
+    "INBOX_FOLDER": "/var/spacedev/xfer/app-python-shipdetector-onnx/inbox",
+    "OUTBOX_FOLDER_CHIPS": "chips",
+    "OUTBOX_FOLDER": "/var/spacedev/xfer/app-python-shipdetector-onnx/outbox",
+    "IMG_CHIPPING_SCALE": 3.0,
+    "IMG_CHIPPING_PADDING": 20,
+    "DETECTION_THRESHOLD": 0.8,
+    "NUM_OF_WORKERS": 5
+}

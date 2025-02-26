@@ -1,0 +1,38 @@
+ARG APP_DIRECTORY=/workspace/app-python-shipdetector-onnx
+
+# Use the official Alpine image as a base
+FROM python:3.10-slim-bullseye
+ARG APP_DIRECTORY
+ENV PYTHONUNBUFFERED=1
+ENV APP_DIRECTORY=${APP_DIRECTORY}
+ENV PATH="${PATH}:/usr/share/dotnet"
+
+# Set the working directory in the container
+WORKDIR ${APP_DIRECTORY}
+
+RUN pip install --no-cache-dir poetry
+
+# Install .NET 6 SDK
+RUN apt-get update \
+    && apt-get install -y wget apt-transport-https \
+    && wget https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+    && dpkg -i packages-microsoft-prod.deb \
+    && apt-get update \
+    && apt-get install -y aspnetcore-runtime-6.0 \
+    && rm packages-microsoft-prod.deb
+
+# Create a non-root user and group
+RUN groupadd --gid 1000 spaceuser \
+    && useradd --uid 1000 --gid 1000 --no-create-home --shell /bin/bash spaceuser
+
+
+COPY --chown=spaceuser:spaceuser . .
+
+# Install dependencies without creating a virtual environment
+RUN poetry config virtualenvs.create false && poetry install --no-dev
+
+# Switch to the non-root user
+# USER spaceuser
+
+# Run the application
+CMD ["python", "src/app/main.py"]

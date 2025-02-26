@@ -1,0 +1,27 @@
+// launch.json contains information needed for the debugger to attach to  processes
+// See https://code.visualstudio.com/Docs/editor/debugging#_launch-configurations
+// for documentation about how to create and manage configurations
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug App",
+            "type": "python",
+            "request": "attach",
+            "preLaunchTask": "deploy-debugshim-client",
+            "postDebugTask": "reset-debugshim-client",
+            "connect": {
+                "host": "localhost",
+                "port": 5678,
+            },
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "${workspaceFolder}"
+                }
+            ],
+            "justMyCode": false,
+            "internalConsoleOptions": "openOnSessionStart"
+        }
+    ]
+}

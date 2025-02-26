@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-python-shipdetector-onnx
+  namespace: payload-app
+  labels:
+    app: app-python-shipdetector-onnx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-python-shipdetector-onnx
+  template:
+    metadata:
+      labels:
+        app: app-python-shipdetector-onnx
+    spec:
+      containers:
+      - name: app-python-shipdetector-onnx
+        image: registry.spacefx.local:5000/app-python-shipdetector-onnx:0.11.0-nightly
+        imagePullPolicy: Always
+        env:
+        - name: DOTNET_SYSTEM_GLOBALIZATION_INVARIANT
+          value: "1"
+        command: ["python"]
+        args: ["/workspace/app-python-shipdetector-onnx/src/app/main.py"]
